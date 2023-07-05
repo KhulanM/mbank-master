@@ -36,8 +36,8 @@ const App = () => {
   };
 
   const handleCloseModal = () => {
-    setIsFormVisible(false);
     setRefreshTable(true);
+    setIsFormVisible(false);
   };
 
   const handleDeleteCloseModal = () => {

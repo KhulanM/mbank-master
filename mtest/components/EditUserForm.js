@@ -59,10 +59,11 @@ function EditUserFunction({ isVisible, onClose, userEdit, updateUser }) {
   const handleCancel = () => {
     onClose();
   };
+
   return (
     <Modal
       open={isVisible}
-      onCancel={() => handleCancel()}
+      onClose={() => handleCancel()}
       onOk={handleSubmit}
       footer={null}
     >
