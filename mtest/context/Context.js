@@ -1,17 +1,16 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState([]);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
   const [isLoggedOut, setIsLoggedOut] = useState(false);
   const { id, name, email, birthday, userTypes, accessToken, refreshToken } =
-    user;
-
+    user || {};
   useEffect(() => {
     const accessToken = Cookies.get("accessToken");
     if (accessToken) {
@@ -31,22 +30,17 @@ export const AuthProvider = ({ children }) => {
     try {
       const accessToken = Cookies.get("accessToken");
       if (!accessToken) {
-        return;
+        console.log("no access token");
       }
       const response = await axios.get("http://localhost:8000/user/profile", {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      const userData = response.data;
-      setUser({
-        ...userData.user,
-        accessToken: accessToken,
-        refreshToken: userData.refreshToken,
-      });
-      // Rest of the code
+      const userData = response?.data;
+      setUser(userData);
     } catch (error) {
-      console.log(error);
+      console.log({ error });
     }
   };
 
@@ -64,8 +58,6 @@ export const AuthProvider = ({ children }) => {
         setUser: setUser,
         isLoggedIn: isLoggedIn,
         setIsLoggedIn: setIsLoggedIn,
-        isAdmin: isAdmin,
-        setIsAdmin: setIsAdmin,
         isLoggedOut: isLoggedOut,
         setIsLoggedOut: setIsLoggedOut,
         logout: logout,
