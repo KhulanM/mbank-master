@@ -144,7 +144,7 @@ exports.getProfile = async (req, res) => {
     const userData = {
       email: user.email,
       name: user.name,
-      id: user._id,
+      id: user.id,
       accessToken: accessToken,
       refreshToken: refreshToken,
       userTypes: user.userTypes,

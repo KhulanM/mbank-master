@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 import Navbar from "../components/Navbar";
 
 export default function UserProfile() {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const [userData, setUserData] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -22,11 +22,17 @@ export default function UserProfile() {
     // window.location.reload();
   };
 
+  const updateUser = (updatedUser) => {
+    setUser(updatedUser);
+  };
+
   return (
     <div>
       <div className="py-3 px-10">
         {user ? (
-          <h2 className="text-l text-center font-bold py-10">Hi! {user}</h2>
+          <h2 className="text-l text-center font-bold py-10">
+            Hi! {user.name}
+          </h2>
         ) : (
           <h2>loading....</h2>
         )}
@@ -43,6 +49,7 @@ export default function UserProfile() {
             <EditUserFunction
               onClose={handleCloseModal}
               isVisible={isModalVisible}
+              updateUser={updateUser}
             />
           ) : null}
         </div>

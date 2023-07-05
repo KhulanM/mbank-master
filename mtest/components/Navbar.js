@@ -10,7 +10,8 @@ import { useAuth } from "../context/Context";
 
 const Navbar = ({ data }) => {
   const router = useRouter();
-  const { isAdmin, isLoggedIn, user, logout } = useAuth();
+  const { isLoggedIn, user, logout } = useAuth();
+  const isAdmin = user?.userTypes === "admin";
 
   axios.interceptors.request.use(
     (config) => {
@@ -64,7 +65,7 @@ const Navbar = ({ data }) => {
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a className="flex items-center">
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            {user}
+            {user ? user.name : "Guest"}
           </span>
         </a>
         <button

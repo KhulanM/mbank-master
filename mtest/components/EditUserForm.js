@@ -1,23 +1,53 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Modal } from "antd";
 import { useAuth } from "../context/Context";
 
-function EditUserFunction({ isVisible, onClose }) {
+function EditUserFunction({ isVisible, onClose, userEdit, updateUser }) {
   const { user, setUser } = useAuth();
-  const [formData, setFormData] = useState({});
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    birthday: "",
+    status: "",
+  });
+
+  useEffect(() => {
+    if (userEdit) {
+      setFormData({
+        name: userEdit.name,
+        email: userEdit.email,
+        birthday: userEdit.birthday,
+        status: userEdit.status,
+      });
+    } else {
+      setFormData({
+        name: user.name,
+        email: user.email,
+        birthday: user.birthday,
+        status: user.status,
+      });
+    }
+  }, [user, userEdit]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:8000/user/update/${user.id}`, {
-        name: formData.name,
-        email: formData.email,
-        birthday: formData.birthday,
-        status: formData.status,
-      });
+      let apiUrl;
+      let updatedData;
 
-      setUser({ ...user, ...formData });
+      if (userEdit) {
+        apiUrl = `http://localhost:8000/user/update/${userEdit._id}`;
+        updatedData = { ...userEdit, ...formData };
+      } else {
+        apiUrl = `http://localhost:8000/user/update/${user.id}`;
+        updatedData = { ...user, ...formData };
+      }
+
+      await axios.put(apiUrl, updatedData);
+      console.log(updatedData);
+      updateUser(updatedData);
 
       onClose();
     } catch (error) {
@@ -36,7 +66,7 @@ function EditUserFunction({ isVisible, onClose }) {
       onOk={handleSubmit}
       footer={null}
     >
-      <form onSubmit={handleSubmit}>
+      <form className="space-y-4" onSubmit={handleSubmit}>
         <div className="input-type">
           <input
             type="text"
@@ -107,18 +137,20 @@ function EditUserFunction({ isVisible, onClose }) {
             </label>
           </div>
         </div>
-        <button
-          type="submit"
-          className="flex justify-center text-md w-2/6 bg-orange-600 text-white py-2 px-4 border rounded-md hover:bg-orange-600 hover:text-white"
-        >
-          Update
-        </button>
-        <button
-          onClick={handleCancel}
-          className=" inline-block justify-center text-md w-2/6 bg-orange-600 text-white py-2 px-4 border rounded-md hover:bg-orange-600 hover:text-white"
-        >
-          Cancel
-        </button>
+        <div className="flex justify-between">
+          <button
+            type="submit"
+            className="text-md w-2/6 bg-green-800 text-white ml-36 py-2 px-4 border rounded-md hover:bg-green-600 hover:text-white"
+          >
+            Update
+          </button>
+          <button
+            onClick={handleCancel}
+            className="text-md w-2/6 bg-orange-600 text-white py-2 px-4 border rounded-md hover:bg-orange-400 hover:text-white"
+          >
+            Cancel
+          </button>
+        </div>
       </form>
     </Modal>
   );

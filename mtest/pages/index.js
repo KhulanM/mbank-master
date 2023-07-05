@@ -6,5 +6,11 @@ import App from "../components/Table";
 import { useRouter } from "next/router";
 
 export default function Home() {
-  return <div></div>;
+  return (
+    <div>
+      <h2 className="text-center py-10 font-extrabold text-2xl text-green-800">
+        Test Project
+      </h2>
+    </div>
+  );
 }

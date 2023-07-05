@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Space, Table, Tag } from "antd";
+import { useEffect, useState } from "react";
+import { Space, Table } from "antd";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import { green } from "@ant-design/colors";
@@ -11,58 +11,63 @@ const { Column } = Table;
 const App = () => {
   const [data, setData] = useState([]);
   const [user, setUser] = useState({});
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isFormVisible, setIsFormVisible] = useState(false);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [refreshTable, setRefreshTable] = useState(false);
+  const [userEdit, setUserEdit] = useState(null);
 
-  // const userInfo = (_id) => {
-  //   axios
-  //     .get(`http://localhost:8000/user/${_id}`)
-  //     .then((response) => {
-  //       setUser(response.data.data);
-  //       console.log(user);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // };
-
-  const handleEdit = (rowData) => {
-    setUser({ ...rowData });
-    setIsModalVisible(true);
+  const handleEdit = (user) => {
+    axios
+      .get(`http://localhost:8000/user/${user.id}`)
+      .then((response) => {
+        setUserEdit(response?.data);
+        setIsFormVisible(true);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
-
+  const handleEditUser = (rowData) => {
+    setUserEdit({ ...rowData });
+  };
   const handleDelete = (rowData) => {
     setUser({ ...rowData });
     setIsDeleteModalVisible(true);
   };
 
   const handleCloseModal = () => {
-    setIsModalVisible(false);
-    // window.location.reload();
+    setIsFormVisible(false);
+    setRefreshTable(true);
   };
 
   const handleDeleteCloseModal = () => {
+    setUserEdit(null);
     setIsDeleteModalVisible(false);
-    // window.location.reload();
+    setRefreshTable(true);
   };
-
+  const updateUser = (updatedUser) => {
+    setUser(updatedUser);
+  };
   useEffect(() => {
     axios
       .get("http://localhost:8000/user/")
       .then((response) => {
         setData(response.data.data);
+        setRefreshTable(false);
       })
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, [refreshTable]);
 
   return (
     <div>
       <EditUserFunction
-        isVisible={isModalVisible}
+        // isVisible ={isFormVisible}
+        isVisible={Boolean(userEdit)}
         onClose={handleCloseModal}
-        user={user}
+        userEdit={userEdit}
+        updateUser={updateUser}
       />
       <DeleteUserFunction
         isVisible={isDeleteModalVisible}
@@ -81,7 +86,7 @@ const App = () => {
               key="action"
               render={(_, user) => (
                 <Space size="middle">
-                  <a onClick={() => handleEdit(user)}>Edit {user.lastName}</a>
+                  <a onClick={() => handleEditUser(user)}>Edit</a>
                   <a onClick={() => handleDelete(user)}>Delete</a>
                 </Space>
               )}
