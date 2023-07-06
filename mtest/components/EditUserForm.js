@@ -19,14 +19,12 @@ function EditUserFunction({ isVisible, onClose, userEdit, updateUser }) {
         name: userEdit.name,
         email: userEdit.email,
         birthday: userEdit.birthday,
-        status: userEdit.status,
       });
     } else {
       setFormData({
         name: user.name,
         email: user.email,
         birthday: user.birthday,
-        status: user.status,
       });
     }
   }, [user, userEdit]);
@@ -69,7 +67,7 @@ function EditUserFunction({ isVisible, onClose, userEdit, updateUser }) {
         <div className="input-type">
           <input
             type="text"
-            value={formData.name}
+            value={formData.name || ""}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             className="border w-full px-5 py-3 focus:outline-none rounded-md"
             name="name"
@@ -79,7 +77,7 @@ function EditUserFunction({ isVisible, onClose, userEdit, updateUser }) {
         <div className="input-type">
           <input
             type="email"
-            value={formData.email}
+            value={formData.email || ""}
             onChange={(e) =>
               setFormData({ ...formData, email: e.target.value })
             }
@@ -91,7 +89,7 @@ function EditUserFunction({ isVisible, onClose, userEdit, updateUser }) {
         <div className="input-type">
           <input
             type="date"
-            value={formData.birthday}
+            value={formData.birthday || ""}
             onChange={(e) =>
               setFormData({ ...formData, birthday: e.target.value })
             }
@@ -138,12 +136,14 @@ function EditUserFunction({ isVisible, onClose, userEdit, updateUser }) {
         </div>
         <div className="flex justify-between">
           <button
+            value="submit"
             type="submit"
             className="text-md w-2/6 bg-green-800 text-white ml-36 py-2 px-4 border rounded-md hover:bg-green-600 hover:text-white"
           >
             Update
           </button>
           <button
+            value="cancel"
             onClick={handleCancel}
             className="text-md w-2/6 bg-orange-600 text-white py-2 px-4 border rounded-md hover:bg-orange-400 hover:text-white"
           >

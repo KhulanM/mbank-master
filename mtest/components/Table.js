@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Space, Table, Tag } from "antd";
 import axios from "axios";
-import Navbar from "./Navbar";
 import { green } from "@ant-design/colors";
 import EditUserFunction from "./EditUserForm";
 import DeleteUserFunction from "./DeleteUserForm";
@@ -21,7 +20,6 @@ const App = () => {
       .get(`http://localhost:8000/user/${_id}`)
       .then((response) => {
         setUser(response.data.data);
-        console.log(user);
       })
       .catch((error) => {
         console.error(error);
@@ -91,7 +89,7 @@ const App = () => {
       key: "action",
       render: (_, user) => (
         <Space size="middle">
-          <a onClick={() => handleEdit(user)}>Edit {user.lastName}</a>
+          <a onClick={() => handleEdit(user)}>Edit</a>
           <a onClick={() => handleDelete(user._id)}>Delete</a>
         </Space>
       ),

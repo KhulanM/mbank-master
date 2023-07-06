@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { useAuth } from "../context/Context";
+import { signinValidate } from "../helper/userValidate";
 
 export default function SignIn() {
   const [isSuccess, setIsSuccess] = useState(false);
@@ -55,7 +56,7 @@ export default function SignIn() {
   return (
     <div className="flex justify-center items-center h-screen">
       <div className=" w-full max-w-xs">
-        <h2 className="text-2xl font-bold mb-4 text-center">Sign Up</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center">Log In</h2>
         {showMessage && (
           <>
             {isSuccess ? (

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Space, Table } from "antd";
 import axios from "axios";
-import Navbar from "../components/Navbar";
 import { green } from "@ant-design/colors";
 import EditUserFunction from "../components/EditUserForm";
 import DeleteUserFunction from "../components/DeleteUserForm";

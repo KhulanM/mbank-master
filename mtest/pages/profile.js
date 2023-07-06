@@ -1,13 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import EditUserFunction from "../components/EditUserForm";
-import axios from "axios";
 import { useAuth } from "../context/Context";
-import Cookies from "js-cookie";
-import Navbar from "../components/Navbar";
 
 export default function UserProfile() {
   const { user, setUser, isLoggedIn } = useAuth();
-  const [userData, setUserData] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -19,7 +15,6 @@ export default function UserProfile() {
   const handleCloseModal = () => {
     setIsEditing(false);
     setIsModalVisible(false);
-    // window.location.reload();
   };
 
   const updateUser = (updatedUser) => {

@@ -1,5 +1,4 @@
 import "../styles/globals.css";
-import Layout from "../components/Layout";
 import "../styles/style.css";
 import { AuthProvider } from "../context/Context";
 import Navbar from "../components/Navbar";

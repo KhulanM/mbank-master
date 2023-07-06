@@ -1,12 +1,9 @@
 import React from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
-import Link from "next/link";
-import SignIn from "../pages/signin";
-import { useEffect } from "react";
-import Users from "../../server/src/model/user";
 import Cookies from "js-cookie";
 import { useAuth } from "../context/Context";
+import { Space } from "antd";
 
 const Navbar = ({ data }) => {
   const router = useRouter();
@@ -31,35 +28,6 @@ const Navbar = ({ data }) => {
     router.push("/signin");
   };
 
-  // useEffect(() => {
-  //   const checkLoggedInStatus = async () => {
-  //     console.log("firstppppppp");
-
-  //     try {
-  //       const token = Cookies.get("accessToken");
-  //       console.log("1");
-  //       debugger;
-  //       const res = await axios
-  //         .get(`http://localhost:8000/user/token/${token}`)
-  //         .then((res) => console.log(res.data, "ressssss-dataa"));
-  //       console.log(res, "kkkkkkkkk");
-  //       if (userEmail.data.exp * 1000 <= Date.now()) {
-  //         // LogOut();
-  //         setIsLogged(false);
-  //         setIsAdmin(false);
-  //       } else {
-  //         setIsLogged(true);
-  //       }
-
-  //       if (res.data.userTypes === "admin") setIsAdmin(res.data.userTypes);
-  //     } catch (error) {
-  //       setIsLogged(false);
-  //       setIsAdmin(false);
-  //     }
-  //   };
-
-  //   checkLoggedInStatus();
-  // }, []);
   return (
     <nav className="bg-white border-gray-200 dark:bg-green-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -75,7 +43,6 @@ const Navbar = ({ data }) => {
           aria-controls="navbar-default"
           aria-expanded="false"
         >
-          <span className="sr-only">Open main menu</span>
           <svg
             className="w-6 h-6"
             aria-hidden="true"
@@ -103,16 +70,19 @@ const Navbar = ({ data }) => {
                 Home
               </p>
             </li>
-            <li>
-              <p
-                onClick={() => {
-                  router.push("/profile");
-                }}
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-gray-300 md:p-0 dark:text-white md:dark:hover:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-              >
-                Profile
-              </p>
-            </li>
+            {isLoggedIn && (
+              <li>
+                <p
+                  onClick={() => {
+                    router.push("/profile");
+                  }}
+                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-gray-300 md:p-0 dark:text-white md:dark:hover:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                >
+                  Profile
+                </p>
+              </li>
+            )}
+
             {isAdmin && (
               <li>
                 <p
@@ -136,14 +106,14 @@ const Navbar = ({ data }) => {
                 </a>
               </li>
             ) : (
-              <div>
+              <div className="flex justify-between space-x-6">
                 <li>
                   <a
                     onClick={() => {
                       router.push("/signin");
                     }}
                     href="#"
-                    className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-gray-300 md:p-0 dark:text-white md:dark:hover:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    className="py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-gray-300 md:p-0 dark:text-white md:dark:hover:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                   >
                     Sign In
                   </a>
@@ -154,7 +124,7 @@ const Navbar = ({ data }) => {
                       router.push("/signup");
                     }}
                     href="#"
-                    className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-gray-300 md:p-0 dark:text-white md:dark:hover:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    className="py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-gray-300 md:p-0 dark:text-white md:dark:hover:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                   >
                     Sign Up
                   </a>

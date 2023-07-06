@@ -1,7 +1,7 @@
 import axios from "axios";
 import ButtonComponent from "../components/ButtonComponent";
 import InputComponent from "../components/InputComponent";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
 
 export default function Signup() {
@@ -62,7 +62,7 @@ export default function Signup() {
   return (
     <div className="flex justify-center items-center h-screen">
       <div className=" w-full max-w-xs">
-        <h2 className="text-2xl font-bold mb-4 text-center">Sign Up</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center">Register</h2>
         {showMessage && (
           <>
             {isSuccess ? (

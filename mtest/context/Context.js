@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
-import { redirect } from "next/dist/server/api-utils";
 
 export const AuthContext = createContext();
 
