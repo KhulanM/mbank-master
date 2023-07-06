@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 import Navbar from "../components/Navbar";
 
 export default function UserProfile() {
-  const { user, setUser } = useAuth();
+  const { user, setUser, isLoggedIn } = useAuth();
   const [userData, setUserData] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -31,7 +31,7 @@ export default function UserProfile() {
       <div className="py-3 px-10">
         {user ? (
           <h2 className="text-l text-center font-bold py-10">
-            Hi! {user.name}
+            {isLoggedIn ? `Hi! ${user.name}` : "Hi! Guest"}
           </h2>
         ) : (
           <h2>loading....</h2>

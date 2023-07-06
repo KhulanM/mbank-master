@@ -153,10 +153,10 @@ export default function Signup() {
             label="Sign Up"
           />
           <a
-            className=" font-bold text-sm text-green-800 ml-16 hover:text-green-700"
+            className=" font-bold text-sm text-green-800 ml-32 hover:text-green-700"
             href="/signin"
           >
-            Have an account?
+            Login
           </a>
         </form>
       </div>

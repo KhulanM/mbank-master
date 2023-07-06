@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { redirect } from "next/dist/server/api-utils";
 
 export const AuthContext = createContext();
 
@@ -18,13 +19,6 @@ export const AuthProvider = ({ children }) => {
       fetchUserData();
     }
   }, []);
-  //   useEffect(() => {
-  //     if (user && user.userTypes === "admin") {
-  //       setIsAdmin(true);
-  //     } else {
-  //       setIsAdmin(false);
-  //     }
-  //   }, [user]);
 
   const fetchUserData = async () => {
     try {
@@ -49,6 +43,7 @@ export const AuthProvider = ({ children }) => {
     Cookies.remove("accessToken");
     Cookies.remove("refreshToken");
     setIsLoggedOut(true);
+    window.location.href = "/signin";
   };
 
   return (

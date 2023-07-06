@@ -1,6 +1,7 @@
 const Users = require("../model/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const zxcvbn = require("zxcvbn");
 
 exports.getUsers = async (req, res) => {
   const users = await Users.find();
@@ -29,6 +30,15 @@ exports.getUser = async (req, res) => {
 exports.createUser = async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const hashed = await bcrypt.hash(req.body.password, salt);
+
+  const passwordStrength = zxcvbn(req.body.password);
+
+  if (passwordStrength.score < 3) {
+    return res.status(400).json({
+      message: "Weak password. Please choose a stronger password.",
+    });
+  }
+
   try {
     const user = await Users.create({
       name: req.body.name,

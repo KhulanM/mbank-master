@@ -46,13 +46,11 @@ function EditUserFunction({ isVisible, onClose, userEdit, updateUser }) {
       }
 
       await axios.put(apiUrl, updatedData);
-      console.log(updatedData);
+      // console.log("updated data: ", { updatedData });
       updateUser(updatedData);
-
       onClose();
     } catch (error) {
       console.log(error);
-      handleCancel();
     }
   };
 

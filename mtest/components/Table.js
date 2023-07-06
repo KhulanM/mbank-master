@@ -63,9 +63,43 @@ const App = () => {
       });
   }, []);
 
+  const dataSource = data.map((user) => ({
+    key: user._id,
+    name: user.name,
+    age: user.age,
+    address: user.address,
+  }));
+
+  const columns = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (_, user) => (
+        <Space size="middle">
+          <a onClick={() => handleEdit(user)}>Edit {user.lastName}</a>
+          <a onClick={() => handleDelete(user._id)}>Delete</a>
+        </Space>
+      ),
+    },
+  ];
+
   return (
     <div>
-      <Navbar />
       <EditUserFunction
         id={userId}
         isVisible={isModalVisible}
@@ -80,22 +114,11 @@ const App = () => {
       />
       <div>
         <div style={{ marginTop: "20px" }}>
-          <Table dataSource={data} style={{ margin: "50px" }}>
-            <Column title="Name" dataIndex="name" key="name" />
-            <Column title="E-mail" dataIndex="email" key="email" />
-            <Column title="Birthday" dataIndex="birthday" key="birthday" />
-            <Column title="Status" dataIndex="status" key="status" />
-            <Column
-              title="Action"
-              key="action"
-              render={(_, user) => (
-                <Space size="middle">
-                  <a onClick={() => handleEdit(user)}>Edit {user.lastName}</a>
-                  <a onClick={() => handleDelete(user._id)}>Delete</a>
-                </Space>
-              )}
-            />
-          </Table>
+          <Table
+            dataSource={dataSource}
+            columns={columns}
+            style={{ margin: "50px" }}
+          />
         </div>
       </div>
     </div>

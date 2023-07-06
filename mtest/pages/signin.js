@@ -107,10 +107,10 @@ export default function SignIn() {
             label="Sign In"
           />
           <a
-            className=" font-bold text-sm text-green-800 ml-16 hover:text-green-700"
+            className=" font-bold text-sm text-green-800 ml-32 hover:text-green-700"
             href="/signup"
           >
-            Don't have an account?
+            Register
           </a>
         </form>
       </div>

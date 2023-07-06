@@ -29,6 +29,7 @@ const App = () => {
   };
   const handleEditUser = (rowData) => {
     setUserEdit({ ...rowData });
+    setIsFormVisible(true);
   };
   const handleDelete = (rowData) => {
     setUser({ ...rowData });
@@ -36,8 +37,8 @@ const App = () => {
   };
 
   const handleCloseModal = () => {
-    setRefreshTable(true);
     setIsFormVisible(false);
+    setRefreshTable(true);
   };
 
   const handleDeleteCloseModal = () => {
@@ -63,8 +64,8 @@ const App = () => {
   return (
     <div>
       <EditUserFunction
-        // isVisible ={isFormVisible}
-        isVisible={Boolean(userEdit)}
+        isVisible={isFormVisible}
+        // isVisible={Boolean(userEdit)}
         onClose={handleCloseModal}
         userEdit={userEdit}
         updateUser={updateUser}
