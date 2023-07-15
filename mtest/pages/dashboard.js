@@ -4,6 +4,7 @@ import axios from "axios";
 import { green } from "@ant-design/colors";
 import EditUserFunction from "../components/EditUserForm";
 import DeleteUserFunction from "../components/DeleteUserForm";
+import Head from "next/head";
 
 const { Column } = Table;
 
@@ -62,6 +63,9 @@ const App = () => {
 
   return (
     <div>
+      <Head>
+        <title>Dashboard</title>
+      </Head>
       <EditUserFunction
         isVisible={isFormVisible}
         // isVisible={Boolean(userEdit)}

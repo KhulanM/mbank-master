@@ -3,7 +3,7 @@ function notValidated(value) {
   else return false;
 }
 function nameValidate(name) {
-  if (isNullOrUndefined(userName))
+  if (isNullOrUndefined(name))
     return { error: true, message: "name is required" };
 }
 
@@ -25,18 +25,18 @@ function passwordValidate(password) {
   };
 }
 
-export function signupValidate(user) {
-  const name = nameValidate(user.name);
+export function signupValidate(form) {
+  const name = nameValidate(form.name);
   if (name?.error) return name;
 
-  const email = emailValidate(user.email);
+  const email = emailValidate(form.email);
   if (email?.error) return email;
 
-  const password = passwordValidate(user.password);
+  const password = passwordValidate(form.password);
   if (password?.error) return password;
 }
 
 export function signinValidate(form) {
-  const email = emailValidate(user.email);
+  const email = emailValidate(form.email);
   if (email?.error) return email;
 }

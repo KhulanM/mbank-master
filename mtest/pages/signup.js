@@ -3,6 +3,7 @@ import ButtonComponent from "../components/ButtonComponent";
 import InputComponent from "../components/InputComponent";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 export default function Signup() {
   const [isSuccess, setIsSuccess] = useState(false);
@@ -47,11 +48,13 @@ export default function Signup() {
           birthday: birthday,
           password: password,
         });
-        console.log(res);
+        // console.log(res);
         setShowMessage(true);
         if (res.statusText === "OK") {
           setIsSuccess(true);
           router.push("/signin");
+        } else {
+          console.log(res.request.response);
         }
       } catch (error) {
         console.log(error);
@@ -61,6 +64,9 @@ export default function Signup() {
 
   return (
     <div className="flex justify-center items-center h-screen">
+      <Head>
+        <title>Signup</title>
+      </Head>
       <div className=" w-full max-w-xs">
         <h2 className="text-2xl font-bold mb-4 text-center">Register</h2>
         {showMessage && (

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import EditUserFunction from "../components/EditUserForm";
 import { useAuth } from "../context/Context";
+import Head from "next/head";
 
 export default function UserProfile() {
   const { user, setUser, isLoggedIn } = useAuth();
@@ -23,6 +24,9 @@ export default function UserProfile() {
 
   return (
     <div>
+      <Head>
+        <title>Profile</title>
+      </Head>
       <div className="py-3 px-10">
         {user ? (
           <h2 className="text-l text-center font-bold py-10">

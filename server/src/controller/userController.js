@@ -2,6 +2,7 @@ const Users = require("../model/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const zxcvbn = require("zxcvbn");
+// import { encryptData, decryptData } from "../middleware/encryptionUtils";
 
 exports.getUsers = async (req, res) => {
   const users = await Users.find();
@@ -61,6 +62,7 @@ exports.Login = async (req, res) => {
   try {
     const user = await Users.findOne({ email: email });
     const match = await bcrypt.compare(password, user.password);
+
     if (match) {
       const accessToken = jwt.sign(
         {

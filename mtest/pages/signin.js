@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { useAuth } from "../context/Context";
 import { signinValidate } from "../helper/userValidate";
+import Head from "next/head";
 
 export default function SignIn() {
   const [isSuccess, setIsSuccess] = useState(false);
@@ -25,6 +26,13 @@ export default function SignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const form = { email, password };
+
+    const validationResult = signinValidate(form);
+    if (validationResult?.error) {
+      console.log(validationResult.message);
+      return;
+    }
     Login();
   };
 
@@ -55,6 +63,9 @@ export default function SignIn() {
 
   return (
     <div className="flex justify-center items-center h-screen">
+      <Head>
+        <title>Signin</title>
+      </Head>
       <div className=" w-full max-w-xs">
         <h2 className="text-2xl font-bold mb-4 text-center">Log In</h2>
         {showMessage && (
