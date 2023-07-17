@@ -3,7 +3,6 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { useAuth } from "../context/Context";
-import { Space } from "antd";
 
 const Navbar = ({ data }) => {
   const router = useRouter();
@@ -25,7 +24,7 @@ const Navbar = ({ data }) => {
   );
   const handleLogout = () => {
     logout();
-    router.push("/signin");
+    router.push("/");
   };
 
   return (

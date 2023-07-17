@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Space, Table, Tag } from "antd";
 import axios from "axios";
-import { green } from "@ant-design/colors";
 import EditUserFunction from "./EditUserForm";
 import DeleteUserFunction from "./DeleteUserForm";
 
@@ -89,8 +88,12 @@ const App = () => {
       key: "action",
       render: (_, user) => (
         <Space size="middle">
-          <a onClick={() => handleEdit(user)}>Edit</a>
-          <a onClick={() => handleDelete(user._id)}>Delete</a>
+          <a key={`edit-${user._id}`} onClick={() => handleEdit(user)}>
+            Edit
+          </a>
+          <a key={`delete-${user._id}`} onClick={() => handleDelete(user._id)}>
+            Delete
+          </a>
         </Space>
       ),
     },

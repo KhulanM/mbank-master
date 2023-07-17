@@ -1,5 +1,4 @@
 import { Button, Modal, Space } from "antd";
-import { useState } from "react";
 import axios from "axios";
 
 export default function DeleteUserFunction({ isVisible, onClose, user }) {

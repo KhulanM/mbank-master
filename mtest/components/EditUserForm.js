@@ -4,7 +4,7 @@ import { Button, Modal } from "antd";
 import { useAuth } from "../context/Context";
 
 function EditUserFunction({ isVisible, onClose, userEdit, updateUser }) {
-  const { user, setUser } = useAuth();
+  const { user, setUser, csrfToken } = useAuth();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -19,12 +19,14 @@ function EditUserFunction({ isVisible, onClose, userEdit, updateUser }) {
         name: userEdit.name,
         email: userEdit.email,
         birthday: userEdit.birthday,
+        status: userEdit ? userEdit.status : "",
       });
     } else {
       setFormData({
         name: user.name,
         email: user.email,
         birthday: user.birthday,
+        status: userEdit ? userEdit.status : "",
       });
     }
   }, [user, userEdit]);
@@ -43,7 +45,11 @@ function EditUserFunction({ isVisible, onClose, userEdit, updateUser }) {
         updatedData = { ...user, ...formData };
       }
 
-      await axios.put(apiUrl, updatedData);
+      await axios.put(apiUrl, updatedData, {
+        headers: {
+          "X-CSRF-Token": csrfToken,
+        },
+      });
       // console.log("updated data: ", { updatedData });
       updateUser(updatedData);
       onClose();
