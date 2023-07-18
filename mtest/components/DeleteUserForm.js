@@ -6,8 +6,6 @@ export default function DeleteUserFunction({ isVisible, onClose, user }) {
   const handleDelete = async () => {
     try {
       await axios.delete(`http://localhost:8000/user/delete/${id}`);
-      console.log("User deleted");
-
       handleCancel();
     } catch (error) {
       console.log(error);
